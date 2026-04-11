@@ -1,0 +1,93 @@
+﻿@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+@import "tailwindcss";
+
+/* ================================
+   DESIGN SYSTEM: NAVY & WHITE
+   컨셉: 딥네이비 바탕 + 화이트/블루 악센트
+   ================================ */
+
+@theme {
+  --color-noir: #081a2f;
+  --color-navy: #103559;
+  --color-navy-light: #184a78;
+  --color-gold: #4d81b7;
+  --color-gold-light: #7aa7d6;
+  --color-gold-pale: #d7e7f7;
+  --color-cream: #f4f8fc;
+  --color-stone: #9ca3af;
+  --color-white: #ffffff;
+
+  --font-family-sans: 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+  --font-family-serif: 'Noto Serif KR', 'Georgia', serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Pretendard Variable', 'Noto Sans KR', system-ui, sans-serif;
+    background-color: #f4f8fc;
+    color: #111827;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #4d81b7 0%, #d7e7f7 50%, #4d81b7 100%);
+  }
+
+  .glass-dark {
+    background: rgba(8, 26, 47, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(122, 167, 214, 0.15);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(122, 167, 214, 0.2);
+  }
+
+  .text-gold {
+    color: #7aa7d6;
+  }
+
+  .text-gold-light {
+    color: #d7e7f7;
+  }
+
+  .divider-gold {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #4d81b7, transparent);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hover-lift {
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 64px rgba(16, 53, 89, 0.14);
+  }
+}

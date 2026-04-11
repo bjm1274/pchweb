@@ -1,0 +1,5 @@
+node_modules
+dist
+.vercel/auth-token.json
+.vercel/device-auth.json
+*.log
