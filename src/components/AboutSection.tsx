@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
 const values = [
@@ -16,15 +16,24 @@ const AboutSection = () => {
             />
 
             <div className="max-w-7xl mx-auto px-6">
+                {/* ✅ 수정: 헤더 스타일 변화 — 큰 숫자 배경 + 컬러 강조 */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="flex items-center gap-4 mb-16"
+                    className="mb-16 relative"
                 >
-                    <div className="divider-gold" style={{ width: 60, height: 2, background: 'linear-gradient(90deg, transparent, #4d81b7, transparent)' }} />
-                    <span className="text-xs font-bold tracking-[0.3em] uppercase" style={{ color: '#4d81b7' }}>병원 소개</span>
+                    <span
+                        className="absolute -top-6 -left-2 text-[120px] font-black leading-none select-none pointer-events-none"
+                        style={{ color: 'rgba(77,129,183,0.07)' }}
+                    >
+                        01
+                    </span>
+                    <p className="text-xs font-bold tracking-[0.3em] uppercase mb-3 relative" style={{ color: '#4d81b7' }}>병원 소개</p>
+                    <h2 className="text-4xl md:text-5xl font-black text-[#111827] leading-tight relative">
+                        왜 <span style={{ color: '#4d81b7' }}>박철홍</span>인가요?
+                    </h2>
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -34,10 +43,10 @@ const AboutSection = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.7 }}
                     >
-                        <h2 className="text-4xl md:text-5xl font-black text-[#111827] leading-tight mb-6">
+                        <h3 className="text-2xl md:text-3xl font-black text-[#111827] leading-tight mb-6">
                             아픈 곳을 쉽게 설명하고<br />
                             <span style={{ color: '#4d81b7' }}>알맞게 치료합니다</span>
-                        </h2>
+                        </h3>
                         <p className="text-gray-500 text-lg leading-relaxed mb-10">
                             무릎, 허리, 어깨, 골절 등 정형외과 진료를 봅니다.
                             검사 결과와 치료 방법을 어려운 말보다 쉬운 말로 설명드리고,

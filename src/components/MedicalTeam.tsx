@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 
 const cards = [
@@ -17,11 +17,14 @@ const cards = [
         tags: ['인공관절', '관절내시경', '절골술', '줄기세포', '관절보존'],
         badge: '대표원장',
         featured: true,
+        // 실제 사진 사용
+        useActualPhoto: true,
     },
     {
         name: '김성미',
         role: '협력의료진 · 영상의학과 전문의',
-        img: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=870&auto=format&fit=crop',
+        // ✅ 수정: Unsplash 외국인 스톡 → SVG 플레이스홀더로 교체
+        img: null,
         summary: 'MRI와 CBCT 등 영상 검사를 바탕으로 정확한 진단을 돕습니다.',
         career: [
             '영상의학과 전문의',
@@ -31,11 +34,13 @@ const cards = [
         tags: ['MRI 판독', '영상 검사', '협진'],
         badge: '협력의료진',
         featured: false,
+        useActualPhoto: false,
     },
     {
         name: '박지선',
         role: '협력의료진 · 마취통증의학과 전문의',
-        img: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=870&auto=format&fit=crop',
+        // ✅ 수정: Unsplash 외국인 스톡 → SVG 플레이스홀더로 교체
+        img: null,
         summary: '수술 전후 통증 관리와 회복 과정을 함께 살핍니다.',
         career: [
             '마취통증의학과 전문의',
@@ -45,8 +50,27 @@ const cards = [
         tags: ['통증 관리', '회복 지원', '협진'],
         badge: '협력의료진',
         featured: false,
+        useActualPhoto: false,
     },
 ];
+
+// ✅ 플레이스홀더 컴포넌트
+const PhotoPlaceholder = ({ name }: { name: string }) => (
+    <div
+        role="img"
+        aria-label={name}
+        className="w-full h-full flex flex-col items-center justify-center gap-3"
+        style={{ background: 'linear-gradient(160deg, #163b60, #0d2640)' }}
+    >
+        {/* 의료 십자가 아이콘 */}
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <circle cx="28" cy="28" r="28" fill="rgba(122,167,214,0.12)" />
+            <circle cx="28" cy="22" r="9" fill="rgba(122,167,214,0.25)" stroke="rgba(122,167,214,0.5)" strokeWidth="1.5" />
+            <path d="M14 46c0-7.732 6.268-14 14-14s14 6.268 14 14" stroke="rgba(122,167,214,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+        <p className="text-xs font-bold text-white/40 tracking-wider">사진 준비 중</p>
+    </div>
+);
 
 const MedicalTeam = () => {
     return (
@@ -95,11 +119,15 @@ const MedicalTeam = () => {
                             </div>
 
                             <div className="relative h-64 overflow-hidden">
-                                <img
-                                    src={card.img}
-                                    alt={card.name}
-                                    className="w-full h-full object-cover object-top grayscale transition-all duration-700 brightness-75"
-                                />
+                                {card.img ? (
+                                    <img
+                                        src={card.img}
+                                        alt={card.name}
+                                        className="w-full h-full object-cover object-top grayscale transition-all duration-700 brightness-75"
+                                    />
+                                ) : (
+                                    <PhotoPlaceholder name={card.name} />
+                                )}
                                 <div
                                     className="absolute inset-0"
                                     style={{ background: 'linear-gradient(to top, #163b60 20%, rgba(22,59,96,0.1))' }}

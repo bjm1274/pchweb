@@ -1,7 +1,6 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-
 
 const heroSlides = [
     {
@@ -27,21 +26,13 @@ const heroSlides = [
 ];
 
 const HeroSection = () => {
-    const [activeSlide, setActiveSlide] = useState(() => Math.floor(Math.random() * heroSlides.length));
+    // ✅ 수정: Math.random() → 0으로 고정 (첫 슬라이드 항상 동일)
+    const [activeSlide, setActiveSlide] = useState(0);
 
     useEffect(() => {
         const intervalId = window.setInterval(() => {
-            setActiveSlide((current) => {
-                let next = current;
-
-                while (next === current) {
-                    next = Math.floor(Math.random() * heroSlides.length);
-                }
-
-                return next;
-            });
+            setActiveSlide((current) => (current + 1) % heroSlides.length);
         }, 5000);
-
         return () => window.clearInterval(intervalId);
     }, []);
 
@@ -53,6 +44,8 @@ const HeroSection = () => {
                         key={slide.image}
                         src={slide.image}
                         alt={slide.alt}
+                        // ✅ 수정: 현재 슬라이드가 아닌 것은 lazy 로드
+                        loading={index === 0 ? 'eager' : 'lazy'}
                         className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[1600ms] ${activeSlide === index ? 'opacity-30' : 'opacity-0'}`}
                     />
                 ))}
@@ -74,7 +67,7 @@ const HeroSection = () => {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
                         style={{ border: '1px solid rgba(122,167,214,0.3)', background: 'rgba(122,167,214,0.08)' }}
                     >
-                        <span className="w-1.5 h-1.5 rounded-full bg-gold-gradient" style={{ background: '#7aa7d6' }} />
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#7aa7d6' }} />
                         <span className="text-gold text-xs font-semibold tracking-[0.2em] uppercase">전남 목포 · Mako 로봇 인공관절</span>
                     </motion.div>
 
@@ -94,7 +87,16 @@ const HeroSection = () => {
                         <span className="text-4xl md:text-5xl xl:text-6xl">더 정확한 인공관절</span>
                     </motion.h1>
 
-                    <div className="mb-10" />
+                    {/* ✅ 추가: subheadline 설명 문구 */}
+                    <motion.p
+                        className="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                    >
+                        무릎·고관절 전문 정형외과 의학박사가<br />
+                        Mako 로봇으로 더 정밀하게, 더 빠르게 회복시켜 드립니다.
+                    </motion.p>
 
                     <motion.div
                         className="flex flex-wrap gap-4"
@@ -118,7 +120,6 @@ const HeroSection = () => {
                         </a>
                     </motion.div>
                 </div>
-
             </div>
 
             <div className="absolute right-6 bottom-8 z-10 hidden md:flex items-center gap-3">

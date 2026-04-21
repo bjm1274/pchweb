@@ -3,18 +3,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, PhoneCall, X } from 'lucide-react';
 
 const TEXT = {
-  hospitalIntro: '\uBCD1\uC6D0 \uC18C\uAC1C',
-  medicalTeam: '\uC758\uB8CC\uC9C4',
-  departments: '\uC9C4\uB8CC \uBD84\uC57C',
-  equipment: '\uCCA8\uB2E8 \uC7A5\uBE44',
-  location: '\uC9C4\uB8CC\uC548\uB0B4',
-  guide: '\uC774\uC6A9\uC548\uB0B4',
-  logoAlt: '\uBC15\uCCA0\uD64D\uC815\uD615\uC678\uACFC \uB85C\uACE0',
-  staffOnly: '\uC9C1\uC6D0\uC804\uC6A9',
-  openMenu: '\uBA54\uB274 \uC5F4\uAE30',
-  closeMenu: '\uBA54\uB274 \uB2EB\uAE30',
-  mobileCaption:
-    '\uC804\uB0A8 \uBAA9\uD3EC \u00B7 Mako \uB85C\uBD07 \uC778\uACF5\uAD00\uC808',
+  hospitalIntro: '병원 소개',
+  medicalTeam: '의료진',
+  departments: '진료 분야',
+  equipment: '첨단 장비',
+  location: '진료안내',
+  guide: '이용안내',
+  logoAlt: '박철홍정형외과 로고',
+  staffOnly: '직원전용',
+  openMenu: '메뉴 열기',
+  closeMenu: '메뉴 닫기',
+  mobileCaption: '전남 목포 · Mako 로봇 인공관절',
 };
 
 type NavLink = {
@@ -88,7 +87,16 @@ const Header = ({ onOpenGuide }: { onOpenGuide: () => void }) => {
             )}
           </nav>
 
-          <div className="hidden items-center gap-4 md:flex">
+          {/* ✅ 수정: 전화 CTA 복원 + 직원전용 버튼 유지 */}
+          <div className="hidden items-center gap-3 md:flex">
+            <a
+              href="tel:061-277-1100"
+              className="group flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-bold transition-all hover:bg-white/10"
+              style={{ border: '1px solid rgba(122,167,214,0.4)', color: '#7aa7d6' }}
+            >
+              <PhoneCall size={15} />
+              061-277-1100
+            </a>
             <a
               href="https://erp.pchos.kr"
               target="_blank"

@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Clock, MapPin, PhoneCall, Car, Bus, ExternalLink, Navigation } from 'lucide-react';
 
 const hours = [
@@ -10,6 +10,8 @@ const hours = [
 
 const naverMapUrl = 'https://map.naver.com/p/search/%EC%A0%84%EB%9D%BC%EB%82%A8%EB%8F%84%20%EB%AA%A9%ED%8F%AC%EC%8B%9C%20%EC%86%A1%EB%A6%BC%EB%A1%9C%2073';
 
+// ✅ 카카오 지도 iframe URL (박철홍정형외과 위치)
+// 카카오맵에서 장소 공유 > 지도 퍼가기 URL로 교체하세요
 const trafficCards = [
     {
         icon: <Bus size={20} style={{ color: '#7aa7d6' }} />,
@@ -38,6 +40,7 @@ const LocationInfo = () => {
                 </motion.div>
 
                 <div className="grid lg:grid-cols-5 gap-10 items-start">
+                    {/* 왼쪽: 진료시간 + 전화 */}
                     <motion.div
                         className="lg:col-span-2 space-y-8"
                         initial={{ opacity: 0, x: -30 }}
@@ -85,6 +88,7 @@ const LocationInfo = () => {
                         </a>
                     </motion.div>
 
+                    {/* 오른쪽: 지도 + 교통 */}
                     <motion.div
                         className="lg:col-span-3 space-y-6"
                         initial={{ opacity: 0, x: 30 }}
@@ -96,69 +100,53 @@ const LocationInfo = () => {
                             <h2 className="text-4xl font-black text-[#111827] mb-2">오시는 길</h2>
                         </div>
 
+                        {/* ✅ 추가: 카카오 지도 iframe */}
+                        <div className="rounded-3xl overflow-hidden shadow-lg border border-gray-100" style={{ height: 300 }}>
+                            <iframe
+                                title="박철홍정형외과 위치"
+                                src="https://map.kakao.com/link/map/박철홍정형외과,34.789414,126.388835"
+                                width="100%"
+                                height="300"
+                                style={{ border: 'none', display: 'block' }}
+                                loading="lazy"
+                                allowFullScreen
+                            />
+                        </div>
+
+                        {/* 주소 + 버튼 */}
                         <div
-                            className="relative overflow-hidden rounded-3xl shadow-lg"
+                            className="relative overflow-hidden rounded-3xl"
                             style={{ background: 'linear-gradient(160deg, #081a2f 0%, #103559 100%)' }}
                         >
-                            <div
-                                className="absolute inset-0 opacity-25"
-                                style={{ background: 'radial-gradient(circle at top right, rgba(122,167,214,0.45), transparent 38%)' }}
-                            />
-
-                            <div className="relative min-h-72 p-8 md:p-10 flex flex-col justify-between gap-8">
-                                <div>
-                                    <div
-                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
-                                        style={{ background: 'rgba(122,167,214,0.10)', border: '1px solid rgba(122,167,214,0.22)' }}
-                                    >
-                                        <MapPin size={14} style={{ color: '#7aa7d6' }} />
-                                        <span className="text-xs font-black tracking-[0.14em] uppercase text-[#d7e7f7]">네이버지도</span>
+                            <div className="relative p-6 md:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between">
+                                <div className="flex items-start gap-3">
+                                    <MapPin size={18} style={{ color: '#7aa7d6' }} className="mt-0.5 shrink-0" />
+                                    <div>
+                                        <p className="text-white font-bold text-base">전라남도 목포시 송림로 73</p>
+                                        <p className="text-slate-400 text-sm mt-0.5">박철홍정형외과</p>
                                     </div>
-
-                                    <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-3">
-                                        네이버지도로 바로
-                                        <br />
-                                        위치를 확인하세요
-                                    </h3>
-
-                                    <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-xl">
-                                        박철홍정형외과 위치를 네이버지도에서 바로 볼 수 있습니다.
-                                        길찾기도 바로 이어서 확인할 수 있습니다.
-                                    </p>
                                 </div>
-
-                                <div className="grid gap-4 sm:grid-cols-[1fr_auto] items-end">
-                                    <div
-                                        className="rounded-2xl px-5 py-4"
-                                        style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.10)' }}
+                                <div className="flex flex-wrap gap-3">
+                                    <a
+                                        href={naverMapUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-black text-[#081a2f] transition-all hover:brightness-110"
+                                        style={{ background: 'linear-gradient(135deg, #7aa7d6 0%, #d7e7f7 100%)' }}
                                     >
-                                        <p className="text-xs font-bold tracking-[0.12em] uppercase text-[#7aa7d6] mb-1">주소</p>
-                                        <p className="text-white font-bold">전라남도 목포시 송림로 73</p>
-                                        <p className="text-slate-400 text-xs mt-1">박철홍정형외과</p>
-                                    </div>
-
-                                    <div className="flex flex-wrap gap-3">
-                                        <a
-                                            href={naverMapUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-black text-[#081a2f] transition-all hover:brightness-110"
-                                            style={{ background: 'linear-gradient(135deg, #7aa7d6 0%, #d7e7f7 100%)' }}
-                                        >
-                                            네이버지도 열기
-                                            <ExternalLink size={15} />
-                                        </a>
-                                        <a
-                                            href={naverMapUrl}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-black text-white transition-colors"
-                                            style={{ border: '1px solid rgba(255,255,255,0.18)' }}
-                                        >
-                                            길찾기 보기
-                                            <Navigation size={15} />
-                                        </a>
-                                    </div>
+                                        네이버지도
+                                        <ExternalLink size={14} />
+                                    </a>
+                                    <a
+                                        href={naverMapUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-black text-white transition-colors"
+                                        style={{ border: '1px solid rgba(255,255,255,0.18)' }}
+                                    >
+                                        길찾기
+                                        <Navigation size={14} />
+                                    </a>
                                 </div>
                             </div>
                         </div>
