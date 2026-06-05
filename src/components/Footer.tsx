@@ -39,7 +39,7 @@ const Footer = () => (
                     <div>
                         <p className="text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ color: '#4d81b7' }}>진료 시간</p>
                         <ul className="space-y-2 text-sm text-gray-500">
-                            <li>월–금 &nbsp;08:30 – 18:00</li>
+                            <li>월–금 &nbsp;08:30 – 19:00</li>
                             <li>토요일 08:30 – 13:00</li>
                             <li className="text-red-400/80">일요일 휴진</li>
                         </ul>

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Clock, MapPin, PhoneCall, Car, Bus, ExternalLink, Navigation } from 'lucide-react';
 
 const hours = [
-    { day: '월 - 금', time: '08:30 - 18:00', note: null },
+    { day: '월 - 금', time: '08:30 - 19:00', note: null },
     { day: '토요일', time: '08:30 - 13:00', note: '오후 1시까지 진료' },
     { day: '일요일', time: '휴진', note: null, closed: true },
     { day: '야간진료', time: '없음', note: null },
