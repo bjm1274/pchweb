@@ -100,17 +100,26 @@ const LocationInfo = () => {
                             <h2 className="text-4xl font-black text-[#111827] mb-2">오시는 길</h2>
                         </div>
 
-                        {/* ✅ 추가: 카카오 지도 iframe */}
-                        <div className="rounded-3xl overflow-hidden shadow-lg border border-gray-100" style={{ height: 300 }}>
-                            <iframe
-                                title="박철홍정형외과 위치"
-                                src="https://map.kakao.com/link/map/박철홍정형외과,34.789414,126.388835"
-                                width="100%"
-                                height="300"
-                                style={{ border: 'none', display: 'block' }}
-                                loading="lazy"
-                                allowFullScreen
-                            />
+                        {/* ✅ 추가: 카카오 지도 (광고 없는 깔끔한 이미지 맵) */}
+                        <div className="rounded-3xl overflow-hidden shadow-lg border border-gray-100 relative group" style={{ height: 300 }}>
+                            <a
+                                href="https://map.kakao.com/?urlX=363948&urlY=364330&urlLevel=4&map_type=TYPE_MAP&map_hybrid=false"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block w-full h-full relative"
+                            >
+                                <img
+                                    src="https://staticmap.kakao.com/map/mapservice?FORMAT=PNG&SCALE=5&MX=363948&MY=364330&S=0&IW=800&IH=400&LANG=0&COORDSTM=WCONGNAMUL&logo=kakao_logo"
+                                    alt="박철홍정형외과 지도"
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    style={{ display: 'block', border: 'none' }}
+                                />
+                                {/* 지도 오버레이 (카카오 로고 및 안내) */}
+                                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl shadow-md border border-gray-200/50 flex items-center gap-2">
+                                    <img src="//t1.kakaocdn.net/localimg/localimages/07/2018/pc/common/logo_kakaomap.png" width="56" height="12" alt="카카오맵" />
+                                    <span className="text-xs font-bold text-gray-700">지도 크게 보기</span>
+                                </div>
+                            </a>
                         </div>
 
                         {/* 주소 + 버튼 */}
