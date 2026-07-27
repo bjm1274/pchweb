@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ExternalLink, X } from 'lucide-react';
 
@@ -19,8 +19,6 @@ type PopupRow = {
   created_at: string | null;
 };
 
-const DEFAULT_SUPABASE_URL = 'https://rtleqrtcqucntnygzudv.supabase.co';
-const DEFAULT_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_EoUqPt5EyaldLFGhMWrQ-A_qCz-fNHx';
 const DISMISS_PREFIX = 'pchos-popup-dismissed';
 
 function getDismissKey(popupId: string) {
@@ -69,30 +67,20 @@ export default function HomepagePopup() {
   const [closed, setClosed] = useState(false);
 
   const popupApiUrl = useMemo(() => {
-    const baseUrl = import.meta.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
-    return `${String(baseUrl).replace(/\/+$/, '')}/rest/v1/popups`;
+    const baseUrl = import.meta.env.VITE_ERP_URL || 'https://erp.pchos.kr';
+    return `${String(baseUrl).replace(/\/+$/, '')}/api/popups`;
   }, []);
-
-  const popupApiKey = useMemo(
-    () => import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || DEFAULT_SUPABASE_PUBLISHABLE_KEY,
-    []
-  );
 
   useEffect(() => {
     let cancelled = false;
 
     const fetchPopup = async () => {
       try {
-        const response = await fetch(
-          `${popupApiUrl}?select=id,title,media_url,media_type,width,height,link_url,start_at,end_at,priority,is_active,created_at&is_active=eq.true&order=priority.desc,created_at.desc&limit=20`,
-          {
-            headers: {
-              apikey: popupApiKey,
-              Authorization: `Bearer ${popupApiKey}`,
-              Accept: 'application/json',
-            },
-          }
-        );
+        const response = await fetch(popupApiUrl, {
+          headers: {
+            Accept: 'application/json',
+          },
+        });
 
         if (!response.ok) return;
 
@@ -122,7 +110,7 @@ export default function HomepagePopup() {
     return () => {
       cancelled = true;
     };
-  }, [popupApiKey, popupApiUrl]);
+  }, [popupApiUrl]);
 
   useEffect(() => {
     if (!popup || closed) return;
@@ -148,8 +136,8 @@ export default function HomepagePopup() {
   if (!activePopup) return null;
 
   const width = normalizeDimension(activePopup.width, 420, 280, 900);
-  const height = normalizeDimension(activePopup.height, 520, 260, 960);
-  const contentHeight = Math.min(Math.max(height, 220), 660);
+
+
 
   const handleClose = () => setClosed(true);
 
@@ -198,13 +186,12 @@ export default function HomepagePopup() {
             </h2>
 
             <div
-              className="overflow-hidden"
-              style={{ maxHeight: `${contentHeight}px` }}
+              className="overflow-y-auto max-h-[70vh] scrollbar-thin"
             >
               {activePopup.media_type === 'video' ? (
                 <video
                   src={activePopup.media_url || undefined}
-                  className="h-full w-full object-cover"
+                  className="w-full h-auto block object-cover"
                   controls
                   autoPlay
                   muted
@@ -215,7 +202,7 @@ export default function HomepagePopup() {
                 <img
                   src={activePopup.media_url || undefined}
                   alt={activePopup.title || '박철홍정형외과 팝업'}
-                  className="h-full w-full object-cover"
+                  className="w-full h-auto block"
                 />
               )}
             </div>
